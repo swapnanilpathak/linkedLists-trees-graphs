@@ -7,8 +7,11 @@
  * 5. insertAtPosition(Object data,int position)
  * 6. deleteFromPosition(int position)
  * 5. display()
- *
+ * 7. searchNode(Object data)
+ * 8. size()
+ * 9. isEmpty()
  */
+
 
 public class LinkedList<T> {
 	Node head = null;
@@ -41,11 +44,13 @@ public class LinkedList<T> {
 	}
 	
 	public void display () {
+		System.out.print("LinkedList is ");
 		Node currentNode = head;
 		while(currentNode != null) {
-			System.out.print(currentNode.data+" ");
+			System.out.print(currentNode.data+"->");
 			currentNode = currentNode.next;
 		}
+		System.out.print("null");
 		System.out.println();
 	}
 	public void deleteAtBeginning() {
@@ -68,7 +73,7 @@ public class LinkedList<T> {
 		this.count--;
 	}
 	// This method uses 1 based indexing for inserting elements
-	// If you want to use 0 based indexing then add +1 to your index
+	// If you want to use 0 based indexing then add +1 to your position
 	public void insertAtPosition(Object data, int position) {
 		Node newNode = new Node(data);
 		if(head == null) {
@@ -119,40 +124,74 @@ public class LinkedList<T> {
 		
 	}
 	
+	public Node searchNode(Object data) {
+		Node currentNode = this.head;
+		while(currentNode != null) {
+			if(currentNode.data==data)
+				break;
+			currentNode = currentNode.next;
+			
+		}
+		if(currentNode!=null) {
+			return currentNode;
+		}else {
+			return null;
+		}
+	}
+	
+	public int size() {
+		return this.count;
+	}
+	
+	public boolean isEmpty() {
+		return this.head==null;
+	}
+	
 	
 	public static void main(String[] args) {
-		System.out.println("*******************");
+		System.out.println("**********Inserting a at beginning, b at beginning, c at end, d at end*********");
 		LinkedList<String> ll = new LinkedList<String>();
-		ll.insertAtBeginning("Beginnning1");
-		ll.insertAtBeginning("Beginnning2");
-		ll.insertAtEnd("End1");
-		ll.insertAtEnd("End2");
+		ll.insertAtBeginning("a");
+		ll.insertAtBeginning("b");
+		ll.insertAtEnd("c");
+		ll.insertAtEnd("d");
 		ll.display();
-		System.out.println("*******************");
+		System.out.println("**********deleting b from beginning, d from end*********");
 		ll.deleteAtBeginning();
 		ll.deleteAtEnd();
 		ll.display();
-		System.out.println("*******************");
-		ll.insertAtPosition("InsertedAt1stposition", 1);
-		ll.insertAtPosition("InsertedAt4thPosition", 4);
+		System.out.println("**********Inserting s at 1st position, p at 4th position*********");
+		ll.insertAtPosition("s", 1);
+		ll.insertAtPosition("p", 4);
 		ll.display();
-		System.out.println("*******************");
+		System.out.println("**********Deleting 2nd and then 3rd position elements*********");
 		ll.deleteFromPosition(2);
 		ll.deleteFromPosition(3);
 		ll.display();
-		System.out.println("*******************");
+		System.out.println("**********Searching for element s*********");
+		Node search = ll.searchNode("s");
+		if(search!=null)System.out.println(search.data);
+		System.out.println("**********Getting size of linkedlist*********");
+		System.out.println(ll.size());
+		System.out.println("**********check if linkedlist is empty*********");
+		System.out.println(ll.isEmpty());
 		
 		/*
 		 * **OUTPUT**
-			*******************
-			Beginnning2 Beginnning1 End1 End2 
-			*******************
-			Beginnning1 End1 
-			*******************
-			InsertedAt1stposition Beginnning1 End1 InsertedAt4thPosition 
-			*******************
-			InsertedAt1stposition End1 
-			*******************
+			**********Inserting a at beginning, b at beginning, c at end, d at end*********
+			LinkedList is b->a->c->d->null
+			**********deleting b from beginning, d from end*********
+			LinkedList is a->c->null
+			**********Inserting s at 1st position, p at 4th position*********
+			LinkedList is s->a->c->p->null
+			**********Deleting 2nd and then 3rd position elements*********
+			LinkedList is s->c->null
+			**********Searching for element s*********
+			s
+			**********Getting size of linkedlist*********
+			2
+			**********check if linkedlist is empty*********
+			false
 		 */
 	}
 
