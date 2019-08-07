@@ -4,12 +4,13 @@
  * 2. insertAtEnd(Object data)
  * 3. deleteAtBeginning()
  * 4. deleteAtEnd()
- * 5. insertAtPosition(Object data,int position)
- * 6. deleteFromPosition(int position)
- * 5. display()
- * 7. searchNode(Object data)
- * 8. size()
- * 9. isEmpty()
+ * 5. insertAtPosition(Object data,int position) 
+ * 6. deleteFromPosition(int position) 
+ * 7. display()
+ * 8. searchNode(Object data)
+ * 9. size()
+ * 10. isEmpty()
+ * 11. getNode(int position) 
  */
 package SinglyLinkedList;
 
@@ -18,6 +19,7 @@ public class LinkedList<T> {
 	Node head = null;
 	int count =0;
 	
+	// Method inserts a node at the beginning of linkedlist
 	public void insertAtBeginning(Object data) {
 		Node newNode = new Node(data);
 		if(head == null) {
@@ -29,6 +31,8 @@ public class LinkedList<T> {
 		}
 		this.count++;
 	}
+	
+	// Method inserts a node at the end of linkedlist
 	public void insertAtEnd(Object dataitem) {
 		Node newNode = new Node(dataitem);
 		if(head == null) {
@@ -43,7 +47,7 @@ public class LinkedList<T> {
 		}
 		this.count++;
 	}
-	
+	// This method displays the linkedlist by printing out all the elements
 	public void display () {
 		System.out.print("LinkedList is ");
 		Node currentNode = head;
@@ -54,6 +58,8 @@ public class LinkedList<T> {
 		System.out.print("null");
 		System.out.println();
 	}
+	
+	// Method deletes the first node of linkedlist
 	public void deleteAtBeginning() {
 		if (head == null) {
 			return;
@@ -62,7 +68,7 @@ public class LinkedList<T> {
 			this.count--;
 		}
 	}
-	
+	// Method deletes the last node of linkedlist
 	public void deleteAtEnd() {
 		Node currentNode = head;
 		Node prevNode = head;
@@ -74,6 +80,7 @@ public class LinkedList<T> {
 		this.count--;
 	}
 	// This method uses 1 based indexing for inserting elements
+	// For example insertAtPosition('a',1) will insert 'a' in the first position or head of linked list
 	// If you want to use 0 based indexing then add +1 to your position
 	public void insertAtPosition(Object data, int position) {
 		Node newNode = new Node(data);
@@ -103,6 +110,8 @@ public class LinkedList<T> {
 		}
 	}
 	// This method uses 1 based indexing to remove elements
+	// For example deleteFromPositionAt(1) will delete the first position or head of linked list
+	// If you want to use 0 based indexing then add +1 to your position
 	public void deleteFromPosition(int position) {
 		if(head == null) {
 			return;
@@ -124,7 +133,7 @@ public class LinkedList<T> {
 		}
 		
 	}
-	
+	// Returns the node which contains the value given in argument of this method
 	public Node searchNode(Object data) {
 		Node currentNode = this.head;
 		while(currentNode != null) {
@@ -139,13 +148,39 @@ public class LinkedList<T> {
 			return null;
 		}
 	}
-	
+	// Returns the size of the linkedlist or total number of nodes in linkedlist
 	public int size() {
 		return this.count;
 	}
-	
+	// Checks whether the linkedlist is empty or not
 	public boolean isEmpty() {
 		return this.head==null;
+	}
+	
+	// Returns the nth node of the linkedlist where n is specified in the argument of the method
+	public Node getNode(int position) {
+		Node returnNode=null;
+		if(this.head==null) {
+			return null;
+		}else {
+			
+			if(position<0||position>=this.count) {
+				System.out.println("Invalid Position: "+position);
+				
+			}else {
+				if(position == 0) {
+					returnNode = this.head;
+				}else {
+					Node currentNode = this.head.next;
+					for(int i=0;i<position-1&&currentNode.next!=null;i++) {
+						currentNode = currentNode.next;
+					}
+					returnNode = currentNode;
+				}
+				
+			}
+			return returnNode;
+		}
 	}
 	
 	
@@ -176,6 +211,10 @@ public class LinkedList<T> {
 		System.out.println(ll.size());
 		System.out.println("**********check if linkedlist is empty*********");
 		System.out.println(ll.isEmpty());
+		System.out.println("**********check if getNode(int position) gave correct values*********");
+		for(int i=0;i<ll.size();i++) {
+			System.out.println(ll.getNode(i).data);
+		}
 		
 		/*
 		 * **OUTPUT**
@@ -193,6 +232,9 @@ public class LinkedList<T> {
 			2
 			**********check if linkedlist is empty*********
 			false
+			**********check if getNode(int position) gave correct values*********
+			s
+			c
 		 */
 	}
 
