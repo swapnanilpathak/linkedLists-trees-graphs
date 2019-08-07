@@ -11,8 +11,11 @@
  * 9. size()
  * 10. isEmpty()
  * 11. searchNode(Object data)
+ * 12. getNode(int position)
  */
 package DoublyLinkedList;
+
+
 
 public class DoublyLinkedList<T> {
 	
@@ -20,6 +23,7 @@ public class DoublyLinkedList<T> {
 	Node head = null;
 	Node tail = null;
 	
+	// Method inserts a node at the beginning of doublylinkedlist
 	public void insertAtBeginning(Object data) {
 		Node newNode = new Node(data);
 		if(this.head == null) {
@@ -33,7 +37,7 @@ public class DoublyLinkedList<T> {
 		}
 		this.count++;
 	}
-	
+	// Method deletes the first node of doublylinkedlist
 	public void deleteAtBeginning() {
 		if(head==null) {
 			return;
@@ -48,6 +52,8 @@ public class DoublyLinkedList<T> {
 			
 		}
 	}
+	
+	// Method inserts a node at the end of doublylinkedlist
 	public void insertAtEnd(Object data) {
 		Node newNode = new Node(data);
 		if(this.head == null) {
@@ -61,6 +67,8 @@ public class DoublyLinkedList<T> {
 		}
 		this.count++;
 	}
+	
+	// Method deletes the last node of doublylinkedlist
 	public void deleteAtEnd() {
 		if(this.head==null) {
 			return;
@@ -79,6 +87,8 @@ public class DoublyLinkedList<T> {
 			}
 		}
 	}
+	
+	//prints the doublylinkedlist in forward order
 	public void displayForward() {
 		if(head==null) {
 			return;
@@ -92,7 +102,7 @@ public class DoublyLinkedList<T> {
 			System.out.println();
 		}
 	}
-	
+	// prints the doublylinkedlist in reversed order
 	public void displayReverse() {
 		if(head==null) {
 			return;
@@ -106,6 +116,10 @@ public class DoublyLinkedList<T> {
 			System.out.println();
 		}
 	}
+	
+	// This method uses 1 based indexing for inserting nodes
+	// For example insertAtPosition('a',1) will insert 'a' in the first position or head of linked list
+	// If you want to use 0 based indexing then add +1 to your position
 	
 	public void insertAtPosition(Object data,int position) {
 		Node newNode = new Node(data);
@@ -147,6 +161,10 @@ public class DoublyLinkedList<T> {
 		}
 	}
 	
+	// This method uses 1 based indexing to remove nodes
+	// For example deleteFromPositionAt(1) will delete the first position or head of linked list
+	// If you want to use 0 based indexing then add +1 to your position
+	
 	public void deleteAtPosition(int position) {
 		if(this.head==null) {
 			return;
@@ -187,14 +205,16 @@ public class DoublyLinkedList<T> {
 			}
 		}
 	}
-	
+	// Returns the size of the doublylinkedlist or total number of nodes in doublylinkedlist
 	public int size() {
 		return this.count;
 	}
+	
+	// Checks whether the doublylinkedlist is empty or not
 	public boolean isEmpty() {
 		return this.head==null;
 	}
-	
+	// Returns the node which contains the value given in argument of this method
 	public Node searchNode(Object data) {
 		Node currentNode = this.head;
 		while(currentNode != null) {
@@ -209,6 +229,34 @@ public class DoublyLinkedList<T> {
 			return null;
 		}
 	}
+	
+	// Returns the nth node of the doublylinkedlist where n is specified in the argument of the method
+	// This method uses 0 based indexing
+	// For example getNode(0) returns the first node or head node
+		public Node getNode(int position) {
+			Node returnNode=null;
+			if(this.head==null) {
+				return null;
+			}else {
+				
+				if(position<0||position>=this.count) {
+					System.out.println("Invalid Position: "+position);
+					
+				}else {
+					if(position == 0) {
+						returnNode = this.head;
+					}else {
+						Node currentNode = this.head.next;
+						for(int i=0;i<position-1&&currentNode.next!=null;i++) {
+							currentNode = currentNode.next;
+						}
+						returnNode = currentNode;
+					}
+					
+				}
+				return returnNode;
+			}
+		}
 	
 	public static void main(String[] args) {
 		DoublyLinkedList<String> dll = new DoublyLinkedList<String>();
@@ -241,6 +289,10 @@ public class DoublyLinkedList<T> {
 		System.out.println(dll.size());
 		System.out.println("**********check if doublylinkedlist is empty*********");
 		System.out.println(dll.isEmpty());
+		System.out.println("**********check if getNode(int position) gave correct values*********");
+		for(int i=0;i<dll.size();i++) {
+			System.out.println(dll.getNode(i).data);
+		}
 		
 		/*
 		 * OUTPUT
@@ -262,6 +314,9 @@ public class DoublyLinkedList<T> {
 		2
 		**********check if doublylinkedlist is empty*********
 		false
+		**********check if getNode(int position) gave correct values*********
+		s
+		c
 		 */
 		
 	}
