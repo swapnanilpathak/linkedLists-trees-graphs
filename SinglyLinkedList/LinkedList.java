@@ -11,6 +11,7 @@
  * 8. size()
  * 9. isEmpty()
  */
+package SinglyLinkedList;
 
 
 public class LinkedList<T> {
