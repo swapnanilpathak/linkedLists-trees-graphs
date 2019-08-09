@@ -1,0 +1,75 @@
+package CircularLinkedList;
+
+public class CircularLinkedList<T> {
+	Node head=null;
+	int count=0;
+	
+	public void insertAtBeginning(Object object) {
+		Node newNode = new Node(object);
+		if(this.head==null) {
+			this.head= newNode;
+			this.count++;
+		}else {
+			Node previousHead = this.head;
+			this.head= newNode;
+			this.head.next= previousHead;
+			
+			Node currentNode=this.head;
+			while(currentNode!=previousHead) {
+				
+				currentNode=currentNode.next;
+				
+			}
+			currentNode.next=this.head;
+			this.count++;
+		}
+	}
+
+	public void insertAtEnd(Object object) {
+		
+	}
+	
+	public void deleteAtBeginning() {
+		if(this.head==null) {
+			return;
+		}else {
+			if(this.head.next==null) {
+				this.head=this.head.next;
+			}else {
+				Node currentNode = this.head;
+				while(currentNode.next!=this.head) {
+					currentNode=currentNode.next;
+				}
+				currentNode.next=this.head.next;
+			}
+			this.count--;
+		}
+		
+	}
+	
+	public void deleteAtEnd() {
+		
+	}
+	
+	public void display() {
+		Node currentNode = this.head;
+		while(currentNode.next!=this.head) {
+			
+			System.out.print(currentNode.data+"->");
+			currentNode=currentNode.next;
+		}
+		System.out.print(currentNode.data+"->");
+		System.out.println();
+	}
+	
+	public static void main(String[] args) {
+		CircularLinkedList<Integer> cll = new CircularLinkedList<Integer>();
+		cll.insertAtBeginning(1);
+		cll.insertAtBeginning(2);
+		cll.display();
+		cll.deleteAtBeginning();
+		cll.display();
+
+	}
+
+}
